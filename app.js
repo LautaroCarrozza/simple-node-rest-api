@@ -1,18 +1,16 @@
 const fetch = require('node-fetch');
-const http = require('http');
+var express = require('express');
+var app = express();
 
-const hostname = '127.0.0.1';
 const port = 3000;
 
-const server = http.createServer((req, res) => {
+app.get('/', (req, res) => {
     fetch('http://jsonplaceholder.typicode.com/posts')
         .then(r => r.json())
         .then(json => {
-            console.log(json)
+            console.log(json);
+            res.send(json);
         });
-
 });
 
-server.listen(port, hostname, () => {
-    console.log(`Server running at http://${hostname}:${port}/`);
-});
+app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
